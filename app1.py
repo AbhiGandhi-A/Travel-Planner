@@ -65,7 +65,7 @@ mysql = MySQL(app)
 db_config = {
     'host': '127.0.0.1',
     'user': 'root',
-    'password': 'Abhi@3014A',
+    'password': '',
     'database': 'user',  # Replace with your actual database name
     'port': 3306,
     'cursorclass': cursors.DictCursor
