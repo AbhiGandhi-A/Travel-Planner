@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Your custom CSS styles here */
+        .bookingTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .bookingTable th,
+        .bookingTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .bookingTable th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .cancelBtn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .cancelBtn:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Loader styles */
+        #loader {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loader-image {
+            width: 150px; /* Adjust the size of the loader */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Bookings</h1>
+        <div id="userBookingsContainer">
+            <!-- User bookings will be rendered here as a table -->
+        </div>
+    </div>
+    <!-- Loader GIF -->
+    <div id="loader">
+        <img class="loader-image" src="{{ url_for('static', filename='cancel.gif') }}" alt="Loading...">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+       $(document).ready(function() {
+        fetchUserBookings(); // Fetch user bookings when the page loads
+    });
+
+    function fetchUserBookings() {
+        $.ajax({
+            url: '/fetch_bookings',
+            type: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    renderUserBookings(response.bookings);
+                } else {
+                    alert('Failed to fetch user bookings: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching user bookings:', error);
+            }
+        });
+    }
+
+    function renderUserBookings(bookings) {
+        // Clear previous bookings table
+        $('#userBookingsContainer').empty();
+
+        // Create bookings table
+        var bookingsTable = $('<table></table>').addClass('bookingTable');
+
+        // Create table header
+        var tableHeader = $('<thead></thead>').append(
+            $('<tr></tr>').append(
+                $('<th></th>').text('Booking ID'),
+                $('<th></th>').text('Package ID'),
+                $('<th></th>').text('Start Date'),
+                $('<th></th>').text('End Date'),
+                $('<th></th>').text('Booking Date'),
+                $('<th></th>').text('Booking Status'),
+                $('<th></th>').text('Action')
+            )
+        );
+
+        // Create table body
+        var tableBody = $('<tbody></tbody>');
+        bookings.forEach(function(booking) {
+            var actionButton = $('<button></button>').addClass('cancelBtn')
+                .text('Cancel')
+                .data('booking-id', booking.id)
+                .click(function() {
+                    cancelBooking(booking.id);
+                });
+
+            var tableRow = $('<tr></tr>').append(
+                $('<td></td>').text(booking.id),
+                $('<td></td>').text(booking.package_id),
+                $('<td></td>').text(booking.start_date),
+                $('<td></td>').text(booking.end_date),
+                $('<td></td>').text(booking.booking_date),
+                $('<td></td>').text(booking.booking_status),
+                $('<td></td>').append(actionButton)
+            );
+
+            tableBody.append(tableRow);
+        });
+
+        // Append header and body to the table
+        bookingsTable.append(tableHeader, tableBody);
+
+        // Append the table to the user bookings container
+        $('#userBookingsContainer').append(bookingsTable);
+    }
+
+    function cancelBooking(bookingId) {
+        // Show loader GIF
+        $('#loader').show();
+
+        // Delay cancellation request for 3 seconds (3000 milliseconds)
+        setTimeout(function() {
+            // Make an AJAX request to cancel the booking after delay
+            $.ajax({
+                url: '/cancel_booking',
+                type: 'POST',
+                data: { booking_id: bookingId },
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        fetchUserBookings(); // Refresh the list of bookings
+                    } else {
+                        alert('Failed to cancel booking: ' + response.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error cancelling booking:', error);
+                },
+                complete: function() {
+                    // Hide loader GIF after request completion
+                    $('#loader').hide();
+                }
+            });
+        }, 3000); // 3 seconds delay before processing cancellation
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="img/favicon.ico" rel="icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="icon" href="{{ url_for('static', filename='tp1.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ url_for('static', filename='tp1.png') }}" type="image/x-icon">
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tempusdominus-bootstrap-4.min.css') }}">
+    
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Travel Planner</title>
+    <style>
+        /* Navigation bar styles */
+/* Navbar Styles */
+
+
+/* Authentication Form Styles */
+.login/signup {
+    position: absolute;
+    top: 100px; /* Adjust as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
+}
+
+.authic-form {
+    display: none;
+    width: 300px; /* Adjust width as needed */
+    padding: 60px;
+    margin-left: 40%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.authic-form.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styles for Login/Signup Links */
+#login-link,
+#signup-link,
+#forgot-password-link {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    margin-right: 10px;
+}
+
+#login-link:hover,
+#signup-link:hover,
+#forgot-password-link:hover {
+    color: #0056b3;
+}
+
+.authic-form.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.authic-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.authic-form input,
+.authic-form button {
+    width: calc(100% - 40px); /* Decreased width */
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.authic-form button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.authic-form button:hover {
+    background-color: #007bff; /* Set to the same color to remove hover effect */
+}
+
+.authic-form p {
+    margin-top: 10px;
+}
+
+/* Additional Styles for Login/Signup Container */
+
+
+/* Styles for Login/Signup Links */
+#login-link,
+#signup-link,
+#forgot-password-link {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    margin-right: 10px;
+}
+
+#login-link:hover,
+#signup-link:hover,
+#forgot-password-link:hover {
+    color: #0056b3;
+}
+
+
+.container-fluid.booking {
+    padding-top: 90px; /* Adjust as needed */
+    padding-bottom: 0px; /* Adjust as needed */
+}
+
+.container.booking {
+    background-color: #fff; /* Background color for the container */
+    padding-top: 30px; /* Padding inside the container */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+#packageDetails {
+    margin-top: 20px; /* Margin from the top */
+}
+
+#destinationMessage {
+    margin-bottom: 20px; /* Margin from the bottom */
+}
+
+#travelPlanDetails {
+    margin-bottom: 20px; /* Margin from the bottom */
+}
+
+/* Optional: Style for datepicker inputs */
+.form-control.datepicker {
+    height: 47px; /* Height of the datepicker input */
+}
+
+/* Optional: Style for the "Show Travel Plan" button */
+#showMessageButton {
+    margin-top: 20px; /* Margin from the top */
+    width: 100%; /* Make button full-width */
+}
+
+/* CSS for User Bookings */
+.navbar {
+            background-color: #000000;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px 0; /* Added padding for better spacing */
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            color: #00ff15;
+            text-decoration: none;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #000000;
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 15px;
+        }
+
+        .nav-link {
+            color: #ffffff !important;
+            text-decoration: none;
+            transition: color 0.3s; /* Smooth transition effect */
+        }
+
+        .nav-link:hover {
+            color: #007bff !important; /* Change color on hover */
+        }
+
+        .dropdown-menu .dropdown-item {
+            transition: background-color 0.1s; /* Smooth transition effect */
+        }
+
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #000000; /* Change background color on hover */
+            color: rgb(4, 185, 4);
+        }
+
+        /* Custom CSS for User Bookings Container */
+/* Styling for the booking containers */
+.container.booking {
+    margin-top: 5%;
+    background-color: #ffffff; /* Background color */
+    padding: 80px; /* Padding */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    max-height: 300px; /* Maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+#userBookingsContainer{
+    width: max-content;
+}
+
+/* Styling for the payment and booking sections */
+#paymentDetails,
+#userBookingsContainer {
+    display: none; /* Initially hide both sections */
+}
+
+/* Styling for the payment and booking sections when shown */
+#paymentDetails.show,
+#userBookingsContainer.show {
+    display: block; /* Show the sections when the 'show' class is applied */
+}
+
+.container.payment {
+        background-color: #f5f5f5;
+        padding: 2px 0;
+    }
+
+#paymentDetails {
+        max-height: 300px; 
+        width: max-content;/* Set a maximum height for the div */
+        overflow-y: auto; /* Add a vertical scrollbar when content exceeds the height */
+        padding-top: 60px;
+        margin-top: 30px;
+        background-color: #fff;
+      
+    }
+
+
+
+/* Carousel container */
+#header-carousel {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20%;
+    height: 200px; /* Adjust height as needed */
+    
+}
+
+/* Carousel items */
+.carousel-item {
+    position: relative;
+    width: 100%;
+    height: 30%;
+    left: 0%;
+}
+
+/* Image inside carousel */
+.carousel-item img {
+    width: 40%;
+    height: 30%;
+    object-fit: cover;
+}
+
+
+/* Carousel caption */
+.carousel-caption {
+    position: absolute;
+    top: 30%;
+    width: 80%;
+    height: 30%;
+    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Caption text */
+.carousel-caption h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.carousel-caption h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Book Now button */
+.carousel-caption .btn {
+    font-size: 1.2rem;
+}
+
+/* Style for the package container */
+#packageContainer {
+    display: flex;
+    margin: 0%;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allow wrapping if the content exceeds the container width */
+}
+
+/* Style for each package item */
+.package-item {
+    width: calc(33.33% - 20px); /* Adjust width and margin as needed */
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for package image */
+.package-image {
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Style for package details */
+.package-info {
+    margin-top: 10px;
+}
+
+/* Style for package title */
+.package-title {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+/* Style for other package details */
+.package-details {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Style for book button */
+.book-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+/* Modal container */
+.payment-modal {
+    display: none; /* Hide the modal by default */
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+/* Modal content */
+.payment-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Center the modal vertically and horizontally */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Close button */
+#close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#close-button:hover,
+#close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form styles */
+#paymentForm {
+    margin-top: 20px;
+}
+
+#paymentForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#paymentForm input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#paymentForm button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#paymentForm button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+/* Add styles for the payment history container */
+/* Styles for the payment details container */
+
+
+/* Styles for individual payment items */
+
+.payment-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.payment-item .transaction-id {
+    font-weight: bold;
+}
+
+.payment-item .status {
+    color: #4caf50; /* Green color for successful payments */
+}
+
+.payment-item .action-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.payment-item .action-button:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+/* Refund Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style for refund form */
+#refundFormContainer {
+    margin-bottom: 20px;
+}
+
+#link{
+    color: white;
+}
+
+#logo{
+    color: rgb(2, 192, 2);
+}
+
+
+#borderblue{
+    border:2px solid rgb(0, 162, 255);
+}
+#borderwhite{
+    border:1px solid white;
+}
+
+#borderblack{
+    border:2px solid black;
+}
+#bordergreen{
+    border:2px solid rgb(4, 194, 4);
+}
+#blackbg{
+    background-color: #343a40;
+}
+
+.hidden {
+    display: none;
+}
+
+#welcome-message {
+    color: white; /* Dark red text color */
+    font-weight: bold;
+}
+
+#destinationContainer{
+    border: 2px solid black;
+}
+
+
+/* Add your styles here */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    overflow: auto; /* Enable scrolling for the table */
+}
+
+/* Close button style */
+#close-button {
+    color: #aaa;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#close-button:hover,
+#close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Style for the destination list table */
+#destinationTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#destinationTable th,
+#destinationTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#destinationTable th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+#destinationTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#destinationTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Style for the table header */
+#destinationTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#chatContainer {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+
+/* Style for the chat input field */
+#chatInput {
+    width: calc(100% - 82px); /* Adjust width based on button and padding */
+    margin-right: 10px;
+}
+
+/* Style for the send message button */
+#sendMessageButton {
+    width: 70px;
+}
+
+#liveChatSupport {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 300px;
+    background-color: #fff;
+    border: 2px solid #000000;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+/* Style for the about content container */
+#aboutContent {
+    display: none; /* Hide the content by default */
+    margin: 30px; /* Add some margin around the content */
+    border: 1px solid #ccc; /* Add a border around the content */
+    border-radius: 5px; /* Add rounded corners */
+    padding: 20px; /* Add padding inside the content */
+    background-color: #f7f7f7; /* Set background color */
+}
+
+/* Style for the heading in the about content */
+#aboutContent h2 {
+    font-size: 24px; /* Set heading font size */
+    margin-bottom: 20px; /* Add margin below the heading */
+}
+
+/* Style for the information container within the about content */
+.info-container {
+    margin-bottom: 10px; /* Add margin below each info line */
+}
+
+/* Style for the placeholders in the information container */
+.info-container p {
+    margin: 5px 0; /* Add margin to separate each info line */
+}
+
+/* Style for the email, phone, and address placeholders */
+#emailPlaceholder,
+#phonePlaceholder,
+#addressPlaceholder {
+    font-weight: bold; /* Make the text bold */
+    color: #333; /* Set text color */
+}
+
+/* Style for the close button */
+.close-btn {
+    padding: 5px 10px;
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background-color: #000000;
+    color: white;
+}
+
+#openChatButton {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 9999; /* Ensure the button is above other content */
+}
+
+#closeChatButton {
+    position: absolute;
+    right: 5px;
+    background-color: rgb(0, 128, 255);
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#openChatButton:hover,
+#closeChatButton:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+
+#openChatButton img {
+    width: 150%; /* Adjust the size of the icon */
+    height: auto;
+}
+
+.loading-animation {
+    display: none; /* Initially hide the loading animation */
+    position: fixed; /* Fixed position so it stays in the center */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the element precisely */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.loading-animation img {
+    max-width: 100px; /* Adjust the max width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.loading-animation1 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none; 
+    background-color: transparent;/* Initially hide the loading animations */
+}
+
+
+
+</style>
+
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap JS -->
+
+<body>
+
+    <div class="container-fluid bg-dark pt-3 d-none d-lg-block" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center">
+                        <img src="{{ url_for('static', filename='tp1.png') }}" alt="" srcset="" width="50px" style="text-align: justify;">
+                        <p id="link"><i class="fa fa-envelope mr-2" id="logo" ></i>garbahub88@gmail.com</p>
+                        <p class="text-body px-3">|</p>
+                        <p id="link"><i class="fa fa-phone-alt mr-2" id="logo"></i>+919879338393</p>
+                    </div>
+                    <div id="welcome-message" d-none></div>
+                </div>
+
+                <div class="col-lg-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a id="link" class="text-primary px-3" href="">
+                            <i id="logo" class="fab fa-facebook-f"></i>
+                        </a>
+                        <a id="link"class="text-primary px-3" href="">
+                            <i class="fab fa-twitter" id="logo"></i>
+                        </a>
+                        <a id="link" class="text-primary px-3" href="">
+                            <i class="fab fa-linkedin-in" id="logo"></i>
+                        </a>
+                        <a id="link" class="text-primary px-3" href="">
+                            <i class="fab fa-instagram" id="logo"></i>
+                        </a>
+                        <a id="link" class="text-primary pl-3" href="">
+                            <i class="fab fa-youtube" id="logo"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <div class="loading-animation1" id="loginLoadingAnimation">
+        <img src="{{ url_for('static', filename='login1.gif') }}" alt="Login Animation">
+    </div>
+    <div class="loading-animation" id="logoutLoadingAnimation">
+        <img src="{{ url_for('static', filename='logout.gif') }}" alt="Logout Animation">
+    </div>
+
+    <div class="loading-animation" id="paymentLoadingAnimation">
+        <img src="{{ url_for('static', filename='paymet.gif') }}" alt="Payment Animation">
+    </div>
+    
+
+    
+
+    <div class="container-fluid position-relative nav-bar p-0">
+        <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5" id="borderwhite">
+                <a href="" class="navbar-brand">
+                    <h1 class="m-0 text-primary"><span class="text-light">TRAVEL</span>PLANNER</h1>
+                </a>
+                <button type="button" class="navbar-toggler " data-toggle="collapse" data-target="#navbarCollapse" >
+                    <span class="navbar-toggler-icon bg-light" ></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse" id="color-white">
+                    <div class="navbar-nav ml-auto py-0"  >
+                        <a href="#" id="home-link" class="nav-item nav-link active">Home</a>
+                        <a href="#" class="nav-item nav-link" id="aboutLink">About</a>
+                        <a href="{{ url_for('display_packages') }}" class="nav-item nav-link">Packages</a>
+                        <a href="#" class="nav-item nav-link" id="login-link" onclick="openLoginForm()">Login</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="serviceDropdown" data-toggle="dropdown">Service</a>
+                            <div class="dropdown-menu border-0 rounded-0 m-0" aria-labelledby="serviceDropdown">
+                                <!-- Dropdown items go here -->
+                                <a href="{{ url_for('bookings') }}" class="dropdown-item">My Bookings</a>
+                                <a href="{{ url_for('payments') }}" class="dropdown-item">My Payments</a>
+                            </div>
+                        </div>
+                        <a href="#" class="nav-item nav-link">Contact</a>
+                        <a href="#" class="nav-item nav-link" id="logout-link" onclick="logoutUser()">Logout</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container-fluid booking" id="paymentDetails">
+        <!-- Payment details will be rendered here -->
+    </div>
+
+    <div class="container-fluid booking" id="userBookingsContainer">
+        <!-- User bookings will be rendered here -->
+    </div>
+
+
+    <div id="aboutContent" style="display: none;">
+        <button id="closeAbout" class="close-btn">Close</button>
+        <h2>About Us</h2>
+        <div class="info-container">
+            <p>about: <span id="aboutPlaceholder"></span></p>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- HTML code for displaying payment details and buttons -->
+
+    <!-- Refund Modal -->
+    
+
+
+
+
+    <div class="login/signup">
+        <div id="signup-form" class="authic-form">
+            <!-- Signup Form HTML -->
+            <h2>Signup</h2>
+            <form>
+                <label for="signup-username">Username:</label>
+                <input class="form-control p-4" type="text" id="signup-username" required>
+                <label for="signup-password">Password:</label>
+                <input class="form-control p-4" type="password" id="signup-password" required>
+                <label for="signup-email">Email:</label>
+                <input class="form-control p-4" type="email" id="signup-email" required>
+                <button type="button" onclick="signupUser()">Signup</button>
+                <p>Already have an account? <a href="#" onclick="openLoginForm()">Login</a></p>
+            </form>
+        </div>
+
+        <div id="login-form" class="authic-form">
+            <!-- Login Form HTML -->
+            <h2>Login</h2>
+            <form>
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" required>
+                <button type="button" onclick="loginUser()">Login</button>
+            </form>
+            <p>New User? <a href="#" onclick="openSignupForm()">Signup</a></p>
+            <p>Forgot your password? <a href="#" onclick="openForgotPasswordForm()">Forgot Password</a></p>
+        </div>
+
+        <div id="forgot-password-form" class="authic-form">
+            <!-- Forgot Password Form HTML -->
+            <h2>Forgot Password</h2>
+            <form>
+                <label for="forgot-email">Email:</label>
+                <input type="email" id="forgot-email" required>
+                <button type="button" onclick="sendOtp()">Send OTP</button>
+            </form>
+        </div>
+
+        <div id="reset-password-section" class="authic-form">
+            <!-- Reset Password Form HTML -->
+            <h2>Reset Password</h2>
+            <form>
+                <label for="reset-email">Email:</label>
+                <input type="email" id="reset-email" required>
+                <label for="reset-otp">OTP:</label>
+                <input type="text" id="reset-otp" required>
+                <label for="reset-new-password">New Password:</label>
+                <input type="password" id="reset-new-password" required>
+                <button type="button" onclick="resetUserPassword()">Reset Password</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Carousel Start -->
+    <div id="header-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner"></div>
+        <a class="carousel-control-prev" hidden href="#header-carousel" data-slide="prev">
+            <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                <span class="carousel-control-prev-icon mb-n2"></span>
+            </div>
+        </a>
+        <a class="carousel-control-next" hidden href="#header-carousel" data-slide="next">
+            <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                <span class="carousel-control-next-icon mb-n2"></span>
+            </div>
+        </a>
+    </div>
+
+
+
+    <div class="container-fluid booking mt-5 pb-5">
+    <div class="container pb-5" >
+        <div class="bg-light shadow" style="padding: 70px;" >
+            <div class="row align-items-center" style="min-height: 60px;">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="fromDestinationInput">Destination</label>
+                                <select id="destinationSelect" class="custom-select px-4" style="height: 47px; ">
+                                    <option selected >Select Destination</option>
+                                    <!-- Options will be dynamically inserted here using JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="frombudgetInput">Budget</label>
+                                <select id="budgetSelect" class="custom-select px-4" style="height: 47px;">
+                                    <option selected>Select Budget</option>
+                                    <!-- Options will be dynamically inserted here using JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="fromDateInput">From Date:</label>
+                                <input type="text" id="fromDateInput" class="form-control datepicker" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="toDateInput">To Date:</label>
+                                <input type="text" id="toDateInput" class="form-control datepicker" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="adultSelect">Adults</label>
+                                <select id="adultSelect" class="custom-select px-4" style="height: 47px;">
+                                    <option value="0" selected>No Adult</option>
+                                    <option value="1">1 Adults</option>
+                                    <option value="2">2 Adults</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="childSelect">Children</label>
+                                <select id="childSelect" class="custom-select px-4" style="height: 47px;">
+                                    <option value="0" selected>No Child</option>
+                                    <option value="1">1 Child</option>
+                                    <option value="2">2 Children</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                        </div>                        
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="totalBudget">Total Budget</label>
+                                <input type="text" id="totalBudget" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="totalGuests">Added Guest</label>
+                                <input type="text" id="totalGuests" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 mb-md-0">
+                                <label for="airplaneSelect">Airplane</label>
+                                <select id="airplaneSelect" class="custom-select px-4" style="height: 47px;">
+                                    <option value="0" selected>No Airplane</option>
+                                    <option value="1">Airplane Option 1</option>
+                                    <option value="2">Airplane Option 2</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="showMessageButton" class="btn btn-primary">Show Travel Plan</button>
+                </div>
+            </div>
+            <!-- HTML code to display package details -->
+             <div id="packageDetails">
+                <div class="loading-animation" id="loadingAnimation">
+                    <img src="https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif" alt="Loading Animation">
+                </div>
+                <div id="destinationMessage"></div>
+                <div id="travelPlanDetails"></div>
+
+                <!-- Available packages will be displayed dynamically using JavaScript -->
+            </div>
+            </div>
+            <div id="daywiseDetails" class="container mt-4">
+                <!-- Other content or styling for the daywise details section -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="paymentModal" class="payment-modal">
+    <div class="payment-modal-content">
+     <span id="close-button" onclick="closePaymentForm()">&times;</span>
+        <h2>Payment Form</h2>
+        <form id="paymentForm">
+            <input type="hidden" id="packageIdInput" name="packageId">
+            <input type="hidden" id="startDateInput" name="startDate">
+            <input type="hidden" id="endDateInput" name="endDate">
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" required>
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YYYY" required>
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" required>
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
+</div>
+
+
+<div id="liveChatSupport" style="display: none;">
+    <div id="chatContainer"></div>
+    <input type="text" id="chatInput" class="form-control" placeholder="Type your message...">
+    <button id="sendMessageButton" onclick="sendMessage()" class="btn btn-primary mt-2">Send</button>
+    <button id="closeChatButton" onclick="closeChatSupport()" class="btn btn-danger mt-2">&times;</button>
+</div>
+
+<button id="openChatButton" onclick="openChatSupport()">
+    <img src="{{ url_for('static', filename='chatbothii.png') }}" alt="Chatbot Icon">
+</button>
+
+        <div class="container-fluid py-5">
+            <div class="container pt-5">
+                <div class="row">
+                    <div class="col-lg-6" style="min-height: 500px;">
+                        <div class="position-relative h-100">
+                            <img class="position-absolute w-100 h-100" src="{{ url_for('static', filename='about.jpg') }}" style="object-fit: cover;">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pt-5 pb-lg-5">
+                        <div class="about-text bg-white p-4 p-lg-5 my-lg-5">
+                            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">About Us</h6>
+                            <h1 class="mb-3">We Provide Best Tour Packages In Your Budget</h1>
+                            <p>Embark on unforgettable journeys with our meticulously crafted tour packages, designed to offer the best experiences within your budget. From breathtaking landscapes to cultural immersion, we ensure every moment is filled with adventure and comfort</p>
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <img class="img-fluid" src="{{ url_for('static', filename='about-1.jpg') }}" alt="">
+                                </div>
+                                <div class="col-6">
+                                    <img class="img-fluid" src="{{ url_for('static', filename='about-2.jpg') }}" alt="">
+                                </div>
+                            </div>
+                            <a href="" class="btn btn-primary mt-1">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Feature Start -->
+        <div class="container-fluid pb-5">
+            <div class="container pb-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="d-flex mb-4 mb-lg-0">
+                            <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3" style="height: 100px; width: 100px;">
+                                <i class="fa fa-2x fa-money-check-alt text-white"></i>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <h5 class="">Competitive Pricing</h5>
+                                <p class="m-0">"Unlock unbeatable value with our competitive pricing strategies, ensuring you get top-notch products and services without breaking the bank. We prioritize affordability without compromising on quality, making your satisfaction our ultimate goal."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex mb-4 mb-lg-0">
+                            <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3" style="height: 100px; width: 100px;">
+                                <i class="fa fa-2x fa-award text-white"></i>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <h5 class="">Best Services</h5>
+                                <p class="m-0">Elevate your journey with our unparalleled services, setting new standards of excellence in every aspect of your experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex mb-4 mb-lg-0">
+                            <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3" style="height: 100px; width: 100px;">
+                                <i class="fa fa-2x fa-globe text-white"></i>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <h5 class="">Worldwide Coverage</h5>
+                                <p class="m-0">Our services extend across the globe, ensuring comprehensive coverage for all your travel needs. From exotic destinations to well-traveled paths, we bring you the world at your fingertips, delivering unparalleled experiences wherever your journey takes you.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Feature End -->
+
+
+        <div class="modal" id="destinationListModal">
+            <div class="modal-content">
+                <span id="close-button" onclick="closeform()">&times;</span>
+                <div id="destinationListContent">
+                    <table id="destinationTable">
+                        <thead>
+                            <tr>
+                                <th>Place Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Destination list rows will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container pt-5 pb-3">
+                <div class="text-center mb-3 pb-3">
+                    <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Destination</h6>
+                    <h1>Explore Top Destinations</h1>
+                </div>
+                <div class="row" id="destinationContainer">
+                    <!-- Destination items will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Destination Start -->
+
+
+        <!-- Service Start -->
+        <div class="container-fluid py-5">
+            <div class="container pt-5 pb-3">
+                <div class="text-center mb-3 pb-3">
+                    <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Services</h6>
+                    <h1>Tours & Travel Services</h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                            <i class="fa fa-2x fa-route mx-auto mb-4"></i>
+                            <h5 class="mb-2">Travel Guide</h5>
+                            <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est amet labore</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                            <i class="fa fa-2x fa-ticket-alt mx-auto mb-4"></i>
+                            <h5 class="mb-2">Ticket Booking</h5>
+                            <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est amet labore</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item bg-white text-center mb-2 py-5 px-4">
+                            <i class="fa fa-2x fa-hotel mx-auto mb-4"></i>
+                            <h5 class="mb-2">Hotel Booking</h5>
+                            <p class="m-0">Justo sit justo eos amet tempor amet clita amet ipsum eos elitr. Amet lorem est amet labore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+        <!-- Packages Start -->
+        <!-- Packages Start -->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <div class="text-center mb-3 pb-3">
+            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Packages</h6>
+            <h1>Pefect Tour Packages</h1>
+        </div>
+        <div class="container" id="packageContainer">
+            <!-- Packages will be dynamically loaded here -->
+        </div>
+    </div>
+</div>
+
+
+
+
+        <!-- Registration Start -->
+        <div class="container-fluid bg-registration py-5" style="margin: 90px 0;">
+            <div class="container py-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 mb-5 mb-lg-0">
+                        <div class="mb-4">
+                            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Mega Offer</h6>
+                            <h1 class="text-white"><span class="text-primary">30% OFF</span> For Honeymoon</h1>
+                        </div>
+                        <p class="text-white">Take advantage of our Mega Offer! Get an exclusive 30% off on all honeymoon packages. Plan your dream getaway with us and create unforgettable memories while saving big on your romantic journey. Don't miss out on this incredible deal!</p>
+                        <ul class="list-inline text-white m-0">
+                            <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Enjoy a 30% discount on all honeymoon packages, making your romantic trip more affordable and memorable.
+                            </li>
+                            <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Plan your dream getaway with us and create unforgettable memories with your loved one in stunning destinations.</li>
+                            <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Don't miss out on this incredible deal! Book now to save big and make your honeymoon experience even more special.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Registration End -->
+
+
+        <!-- Team Start -->
+        <div class="container-fluid py-5">
+            <div class="container pt-5 pb-3">
+                <div class="text-center mb-3 pb-3">
+                    <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Guides</h6>
+                    <h1>Our Travel Guides</h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-2">
+                        <div class="team-item bg-white mb-4">
+                            <div class="team-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="{{ url_for('static', filename='owner.jpg') }}" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-instagram"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <h5 class="text-truncate">Abhi Gandhi</h5>
+                                <p class="m-0">Designation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-2">
+                        <div class="team-item bg-white mb-4">
+                            <div class="team-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-instagram"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <h5 class="text-truncate">Guide Name</h5>
+                                <p class="m-0">Designation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-2">
+                        <div class="team-item bg-white mb-4">
+                            <div class="team-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-instagram"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <h5 class="text-truncate">Guide Name</h5>
+                                <p class="m-0">Designation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-2">
+                        <div class="team-item bg-white mb-4">
+                            <div class="team-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="img/team-4.jpg" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-instagram"></i></a>
+                                    <a class="btn btn-outline-primary btn-square" href=""><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <h5 class="text-truncate">Guide Name</h5>
+                                <p class="m-0">Designation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team End -->
+
+
+        <!-- Testimonial Start -->
+
+        <!-- Testimonial End -->
+
+
+        <!-- Blog Start -->
+        <div class="container-fluid py-5">
+            <div class="container pt-5 pb-3">
+                <div class="text-center mb-3 pb-3">
+                    <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Our Blog</h6>
+                    <h1>Latest From Our Blog</h1>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-lg-4 col-md-6 mb-4 pb-2">
+                        <div class="blog-item">
+                            <div class="position-relative">
+                                <img class="img-fluid w-100" src="{{ url_for('static', filename='blog-1.jpg') }}" alt="">
+                                <div class="blog-date">
+                                    <h6 class="font-weight-bold mb-n1">01</h6>
+                                    <small class="text-white text-uppercase">Jan</small>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4">
+                                <div class="d-flex mb-2">
+                                    <a class="text-primary text-uppercase text-decoration-none" href="">Admin</a>
+                                    <span class="text-primary px-2">|</span>
+                                    <a class="text-primary text-uppercase text-decoration-none" href="">Tours & Travel</a>
+                                </div>
+                                <a class="h5 m-0 text-decoration-none" href="">Explore the top travel destinations for your budget with our customizable trip planner</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4 pb-2">
+                        <div class="blog-item">
+                            <div class="position-relative">
+                                <img class="img-fluid w-100" src="{{ url_for('static', filename='blog-2.jpg') }}" alt="">
+                                <div class="blog-date">
+                                    <h6 class="font-weight-bold mb-n1">01</h6>
+                                    <small class="text-white text-uppercase">Jan</small>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4">
+                                <div class="d-flex mb-2">
+                                    <a class="text-primary text-uppercase text-decoration-none" href="">Admin</a>
+                                    <span class="text-primary px-2">|</span>
+                                    <a class="text-primary text-uppercase text-decoration-none" href="">Tours & Travel</a>
+                                </div>
+                                <a class="h5 m-0 text-decoration-none" href="">Effortlessly book your dream vacation and receive instant booking confirmation via email</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4 pb-2">
+                        <div class="blog-item">
+                            <div class="position-relative">
+                                <img class="img-fluid w-100" src="{{ url_for('static', filename='blog-3.jpg') }}" alt="">
+                                <div class="blog-date">
+                                    <h6 class="font-weight-bold mb-n1">01</h6>
+                                    <small class="text-white text-uppercase">Jan</small>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4">
+                                <div class="d-flex mb-2">
+                                    <a class="text-primary text-uppercase text-decoration-none" href="">Admin</a>
+                                    <span class="text-primary px-2">|</span>
+                                    <a class="text-primary text-uppercase text-decoration-none" href="">Tours & Travel</a>
+                                </div>
+                                <a class="h5 m-0 text-decoration-none" href="">Secure payment processing and database storage ensure a seamless and reliable booking experience</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog End -->
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+            <div class="row pt-5">
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <a href="" class="navbar-brand">
+                        <h1 class="text-primary"><span class="text-white">TRAVEL</span>ER</h1>
+                    </a>
+                    <p>It's an amazing webiste to book your tour</p>
+                    <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Follow Us</h6>
+                    <div class="d-flex justify-content-start">
+                        <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Our Services</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Destination</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Services</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Packages</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Guides</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Testimonial</a>
+                        <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Blog</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Usefull Links</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Destination</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Services</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Packages</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Guides</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Testimonial</a>
+                        <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Blog</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Contact Us</h5>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
+                    <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                    <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Newsletter</h6>
+                    <div class="w-100">
+                        <div class="input-group">
+                            <input type="text" class="form-control border-light" style="padding: 25px;" placeholder="Your Email">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary px-3">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
+            <div class="row">
+                <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                    <p class="m-0 text-white-50">Copyright &copy; <a href="#">Domain</a>. All Rights Reserved.</a>
+                    </p>
+                </div>
+                <div class="col-lg-6 text-center text-md-right">
+                    <p class="m-0 text-white-50">Designed by <a href="https://htmlcodex.com">Abhi Gandhi</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Slim JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+
+    <!-- Your custom scripts -->
+    <script src="{{ url_for('static', filename='js/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/owl-carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/moment-timezone.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+$(document).ready(function(){
+        // Initialize date picker
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+    });
+</script>
+
+<script>
+    function openLoginForm() {
+    var loginForm = document.getElementById("login-form");
+    var signupForm = document.getElementById("signup-form");
+
+    // Hide the signup form
+    signupForm.style.display = "none";
+
+    // Display the login form
+    loginForm.style.display = "block";
+}
+
+function openSignupForm() {
+    var loginForm = document.getElementById("login-form");
+    var signupForm = document.getElementById("signup-form");
+
+    // Hide the login form
+    loginForm.style.display = "none";
+
+    // Display the signup form
+    signupForm.style.display = "block";
+}
+
+function openForgotPasswordForm() {
+    var forgotPasswordForm = document.getElementById("forgot-password-form");
+    var otherForms = document.querySelectorAll(".authic-form:not(#forgot-password-form)");
+
+    forgotPasswordForm.style.display = "block"; // Displaying the forgot password form
+    // Hiding other forms
+    otherForms.forEach(function(form) {
+        form.style.display = "none";
+    });
+}
+        function sendOtp() {
+            var email = $('#forgot-email').val();
+
+            $.post('/forgot-password', { email: email }, function (data) {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Success: ' + data.message);
+                    $('#forgot-password-form').hide();
+                    $('#reset-password-section').show();
+                }
+            }).fail(function () {
+                alert('Error: An unexpected error occurred.');
+            });
+        }
+
+        function resetUserPassword() {
+            var email = $('#reset-email').val();
+            var otp = $('#reset-otp').val();
+            var newPassword = $('#reset-new-password').val();
+
+            $.post('/reset-password', { email: email, otp: otp, new_password: newPassword }, function (data) {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Success: ' + data.message);
+                }
+            }).fail(function () {
+                alert('Error: An unexpected error occurred.');
+            });
+        }
+
+        function signupUser() {
+            var username = $('#signup-username').val();
+            var password = $('#signup-password').val();
+            var email = $('#signup-email').val();
+
+
+            $.ajax({
+                type: "POST",
+                url: "/signup",
+                data: { username: username, password: password, email: email },
+                success: function (data) {
+                    if (data.error) {
+                        alert('Error: ' + data.error);
+                    } else {
+                        alert('Success: ' + data.message);
+                        openLoginForm();
+                    }
+                },
+                error: function () {
+                    alert('Error: An unexpected error occurred.');
+                }
+            });
+        }
+
+        function loginUser() {
+    var username = $('#login-username').val();
+    var password = $('#login-password').val();
+
+    $.ajax({
+        type: "POST",
+        url: "/login",
+        data: { username: username, password: password },
+        success: function (data) {
+            if (data.success) {
+                // Show login loading animation and hide the form
+                $('#loginLoadingAnimation').fadeIn();
+                $('#login-form').hide();
+
+                // Simulate successful login after a delay (for demonstration)
+                setTimeout(function () {
+                    handleSuccessfulLogin(data.username);
+                }, 2000); // Simulating a 2-second delay for login success
+            } else {
+                alert('Error: ' + data.error);
+            }
+        },
+        error: function () {
+            alert('Error: An unexpected error occurred.');
+        }
+    });
+}
+
+$(window).on('beforeunload'>500, function() {
+    logoutUser();
+});
+
+function handleSuccessfulLogin(username) {
+    // Hide the login loading animation
+    $('#loginLoadingAnimation').fadeOut();
+
+    // Display a welcome message
+    $('#welcome-message').text('Welcome, ' + username + '!');
+
+    // Show the logout link
+    $('#logout-link').show();
+}
+
+function logoutUser() {
+    $.ajax({
+        type: "POST",
+        url: "/logout",
+        data: {},  // You can pass any additional data if required
+        success: function (data) {
+            if (data.success) {
+                // Show logout loading animation
+                $('#logoutLoadingAnimation').fadeIn();
+
+                // Simulate successful logout after a delay (for demonstration)
+                setTimeout(function () {
+                    handleSuccessfulLogout();
+                }, 2000); // Simulating a 2-second delay for logout success
+            } else {
+                alert('Error: ' + data.error);
+            }
+        },
+        error: function () {
+            alert('Error: An unexpected error occurred.');
+        }
+    });
+}
+
+function handleSuccessfulLogout() {
+    // Hide the logout loading animation
+    $('#logoutLoadingAnimation').fadeOut();
+
+    // Redirect to home page
+    window.location.href = "/";
+}
+
+$(document).ready(function () {
+    // Function to check login status and update UI
+    function updateLoginStatus() {
+        $.get("/check_login_status", function (data) {
+            if (data.logged_in) {
+                // User is logged in, show Logout link
+                $("#login-link").hide();
+                $("#logout-link").show();
+            } else {
+                // User is not logged in, show Login link
+                $("#login-link").show();
+                $("#logout-link").hide();
+            }
+        });
+    }
+
+    // Check login status when the page loads
+    updateLoginStatus();
+
+    // Bind logoutUser function to logout link click
+    $("#logout-link").on("click", function (e) {
+        e.preventDefault();  // Prevent default link behavior
+        logoutUser();  // Call logout function
+    });
+
+    // Logout user when logout link is clicked and animation ends
+    $("#logout-link").on("click", function (e) {
+        e.preventDefault();  // Prevent default link behavior
+
+        // Show logout loading animation
+        $('#logoutLoadingAnimation').fadeIn();
+
+        // Simulate successful logout after a delay (for demonstration)
+        setTimeout(function () {
+            logoutUser();
+        }, 2000); // Simulating a 2-second delay for logout success
+    });
+});
+
+
+</script>
+<!-- JavaScript code to fetch and display package details -->
+<script>
+    // Function to fetch package details from the backend
+    function fetchPackageDetails() {
+        // Make an AJAX request to your Flask endpoint to fetch package details
+        fetch('/get_package_details')
+            .then(response => response.json())
+            .then(data => {
+                // Check if the request was successful
+                if (data.success) {
+                    // Loop through the packages and create HTML elements to display them
+                    data.packages.forEach(package => {
+                        // Create a new div element for each package
+                        var packageDiv = document.createElement('div');
+                        packageDiv.classList.add('package');
+
+                        // Create an image element for the package image
+                        var image = document.createElement('img');
+                        image.src = package.image_url; // Set the image source
+
+                        // Create a heading element for the package name
+                        var heading = document.createElement('h3');
+                        heading.textContent = package.name;
+
+                        // Create a paragraph element for other details like ratings, price, etc.
+                        var detailsParagraph = document.createElement('p');
+                        detailsParagraph.textContent = `Ratings: ${package.ratings}, Price: ${package.price}, Location: ${package.location}, Days: ${package.days}, Person: ${package.person}`;
+
+                        // Append the image and other details to the package div
+                        packageDiv.appendChild(image);
+                        packageDiv.appendChild(heading);
+                        packageDiv.appendChild(detailsParagraph);
+
+                        // Append the package div to the packageDetails container
+                        document.getElementById('packageDetails').appendChild(packageDiv);
+                    });
+                } else {
+                    // Display an error message if the request failed
+                    console.error('Failed to fetch package details:', data.error);
+                }
+            })
+            .catch(error => console.error('Error fetching package details:', error));
+    }
+
+    // Call the fetchPackageDetails function when the page loads
+    window.onload = fetchPackageDetails;
+
+    fetch('/get_carousel_data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const carouselData = data.carousel_data;
+                const carouselInner = document.querySelector('.carousel-inner');
+
+                // Populate carousel items dynamically
+                carouselData.forEach((item, index) => {
+                    const carouselItem = document.createElement('div');
+                    carouselItem.classList.add('carousel-item');
+                    if (index === 0) {
+                        carouselItem.classList.add('active');
+                    }
+
+                    const img = document.createElement('img');
+                    img.classList.add('w-100');
+                    img.src = item.image;
+                    img.alt = 'Carousel Image';
+
+                    const carouselCaption = document.createElement('div');
+                    carouselCaption.classList.add('carousel-caption', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center');
+                    const captionText = document.createElement('div');
+                    captionText.classList.add('p-3');
+                    captionText.style.maxWidth = '900px';
+                    const captionTitle = document.createElement('h4');
+                    captionTitle.classList.add('text-white', 'text-uppercase', 'mb-md-3');
+                    captionTitle.textContent = 'Tours & Travel';
+                    const captionSubtitle = document.createElement('h1');
+                    captionSubtitle.classList.add('display-3', 'text-white', 'mb-md-4');
+                    captionSubtitle.textContent = item.caption;
+                    const bookNowBtn = document.createElement('a');
+                    bookNowBtn.classList.add('btn', 'btn-primary', 'py-md-3', 'px-md-5', 'mt-2');
+                    bookNowBtn.href = ''; // Add your booking page URL here
+                    bookNowBtn.textContent = 'Book Now';
+
+                    // Append elements
+                    captionText.appendChild(captionTitle);
+                    captionText.appendChild(captionSubtitle);
+                    captionText.appendChild(bookNowBtn);
+                    carouselCaption.appendChild(captionText);
+                    carouselItem.appendChild(img);
+                    carouselItem.appendChild(carouselCaption);
+                    carouselInner.appendChild(carouselItem);
+                });
+            } else {
+                console.error('Failed to fetch carousel data:', data.error);
+            }
+        })
+        .catch(error => console.error('Error fetching carousel data:', error));
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // Add event listener to the carousel items for booking
+    document.querySelectorAll('.carousel-item').forEach(function(item) {
+        item.querySelector('.btn').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default action of the link
+            const packageId = item.dataset.packageId; // Assuming you have a data-package-id attribute on each carousel item
+
+            // Send a POST request to the Flask backend
+            fetch('/book_package', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ packageId: packageId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Package booked successfully!');
+                    // You can perform additional actions here after successful booking
+                } else {
+                    alert('Failed to book package: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error booking package:', error);
+                alert('An error occurred while booking the package.');
+            });
+        });
+    });
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('/fetch_packages')
+        .then(response => response.json())
+        .then(data => {
+            if (data.packages.length > 0) {
+                const packageContainer = document.getElementById('packageContainer');
+                data.packages.forEach(package => {
+                    const packageItem = document.createElement('div');
+                    packageItem.classList.add('package-item', 'bg-white', 'mb-2');
+                    packageItem.innerHTML = `
+                        <img class="img-fluid" src="${package.image_url}" alt="">
+                        <div class="p-4">
+                            <h5 class="text-decoration-none">${package.location}</h5>
+                            <p>${package.days} days</p>
+                            <p>Price: &#8377;${package.price}</p>
+                            <p>Ratings: ${package.ratings}</p>
+                            <img  src="{{ url_for('static', filename='guest.png') }}" alt="" width="50px">
+                            <input type="number" value="${package.guest_count}" min="1" max="10" id="guestCount${package.id}">
+                            <button onclick="bookPackage(${package.id})" class="btn btn-primary">Book Now</button>
+                        </div>
+                    `;
+                    packageContainer.appendChild(packageItem);
+                });
+            } else {
+                packageContainer.innerHTML = '<p>No packages found.</p>';
+            }
+        })
+        .catch(error => console.error('Error fetching packages:', error));
+});
+
+function bookPackage(packageId) {
+    const guestCount = document.getElementById(`guestCount${packageId}`).value;
+    fetch('/book_tour_package', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            package_id: packageId,
+            guest_count: guestCount
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Booking successful!');
+        } else {
+            console.error('Booking Error:', data.error);
+            alert('Booking Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        alert('Error: ' + error.message); // Display error in an alert box
+        console.error('Error:', error);
+    });
+}
+
+// Define the closePaymentForm function
+function closePaymentForm() {
+    document.getElementById('paymentModal').style.display = 'none'; // Hide the payment form
+    // Update payment status to pending (assuming you have a function for this)
+    updatePaymentStatusToPending();
+}
+
+// Function to update payment status to pending
+function updatePaymentStatusToPending() {
+    // Get the logged-in user's ID from session storage
+    var userId = sessionStorage.getItem('user_id');
+
+    // Make an AJAX request to update the payment status to pending
+    fetch('/update_payment_status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userId: userId, // Include user ID in the request
+            packageId: sessionStorage.getItem('package_id'),
+            status: 'pending', // Set the payment status to pending
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Payment status updated to pending');
+        } else {
+            console.error('Error updating payment status:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error updating payment status:', error);
+    });
+}
+
+// scripts.js (continued)
+// Function to close the modal form
+function closeform() {
+    document.getElementById('destinationListModal').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/fetch_top_destinations_with_images')
+        .then(response => response.json())
+        .then(data => {
+            if (data.top_destinations.length > 0) {
+                const destinationContainer = document.getElementById('destinationContainer');
+                data.top_destinations.forEach(destination => {
+                    const destinationItem = document.createElement('div');
+                    destinationItem.classList.add('col-lg-4', 'col-md-6', 'mb-4');
+                    destinationItem.innerHTML = `
+                        <div class="destination-item position-relative overflow-hidden mb-2">
+                            <img class="img-fluid" src="${destination.image_url}" alt="">
+                            <a class="destination-overlay text-white text-decoration-none" href="#" data-destination-id="${destination.id}">
+                                <h5 class="text-white">${destination.name}</h5>
+                                <span>View Destination List</span>
+                            </a>
+                        </div>
+                    `;
+                    destinationContainer.appendChild(destinationItem);
+                });
+
+                // Add event listener for clicking on destination items
+                destinationContainer.addEventListener('click', function(event) {
+                    if (event.target.tagName === 'A') {
+                        event.preventDefault();
+                        const destinationId = event.target.dataset.destinationId;
+                        openDestinationListModal(destinationId);
+                    }
+                });
+            } else {
+                destinationContainer.innerHTML = '<p>No destinations found.</p>';
+            }
+        })
+        .catch(error => console.error('Error fetching destinations:', error));
+});
+
+function openDestinationListModal(destinationId) {
+    fetch(`/fetch_destination_list?top_destination_id=${destinationId}`)
+        .then(response => response.json())
+        .then(data => {
+            const modalContent = document.getElementById('destinationListContent');
+            modalContent.innerHTML = '';
+            if (data.destination_list.length > 0) {
+                data.destination_list.forEach(place => {
+                    const placeItem = document.createElement('div');
+                    placeItem.innerText = place.name;
+                    modalContent.appendChild(placeItem);
+                });
+            } else {
+                modalContent.innerText = 'No places found.';
+            }
+            document.getElementById('destinationListModal').style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching destination list:', error));
+}
+
+window.addEventListener('click', function(event) {
+    if (event.target.id === 'destinationListModal') {
+        closeModal();
+    }
+});
+
+// Close the modal if the user clicks outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('destinationListModal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
+
+
+document.getElementById('home-link').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            fetch('/').then(response => {
+                if (response.ok) {
+                    window.location.href = '/'; // Redirect to the home page
+                } else {
+                    console.error('Failed to fetch the home page');
+                }
+            }).catch(error => console.error(error));
+        });
+
+
+
+// Open refund modal when refund button is clicked
+// Open refund modal when refund button is clicke
+document.addEventListener('DOMContentLoaded', function () {
+        const aboutLink = document.getElementById('aboutLink');
+        const aboutContent = document.getElementById('aboutContent');
+        const closeAbout = document.getElementById('closeAbout');
+        const aboutPlaceholder = document.getElementById('aboutPlaceholder');
+
+        aboutLink.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default link behavior
+            fetch('/about/data') // Replace '/about/data' with your endpoint for fetching data
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Failed to fetch data');
+                    }
+                })
+                .then(data => {
+                    aboutPlaceholder.textContent = data.about;
+                    aboutContent.style.display = 'block'; // Show the about content
+                })
+                .catch(error => console.error(error));
+        });
+
+        closeAbout.addEventListener('click', function () {
+            aboutContent.style.display = 'none'; // Hide the about content when close button is clicked
+        });
+    });
+
+
+
+</script>
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+   </html>

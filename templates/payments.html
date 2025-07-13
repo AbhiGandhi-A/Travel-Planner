@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Payments</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Your custom CSS styles here */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .refundBtn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .refundBtn:hover {
+            background-color: #d32f2f;
+        }
+
+        #refundModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        #refundFormContainer {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        #refundForm label,
+        #refundForm input,
+        #refundForm button {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #refundForm button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #refundForm button:hover {
+            background-color: #45a049;
+        }
+        
+        #loader {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+         }
+
+        .loader-image {
+           width: 50px; /* Adjust the size of the loader */
+          }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Payments</h1>
+        <table id="paymentTable">
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Payment Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="paymentDetails">
+                <!-- Payment details will be rendered here -->
+            </tbody>
+        </table>
+        <div id="refundModal" class="modal">
+            <div id="loader" style="display: none;">
+                <img src="{{ url_for('static', filename='refund.gif') }}" alt="Loading..." width="50px">
+            </div>
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Refund Request</h2>
+                <div id="refundFormContainer">
+                    <!-- Refund Form will be dynamically inserted here -->
+                    <form id="refundForm">
+                        <label for="transactionId">Transaction ID:</label>
+                        <input type="text" id="transactionId" name="transactionId" readonly>
+                        <label for="bankAccount">Bank Account:</label>
+                        <input type="text" id="bankAccount" name="bankAccount" required>
+                        <button type="submit" id="refundSubmit">Submit Refund</button>
+                        <h6 id="successMessage" style="display: none; color: rgb(9, 145, 230);">Refund requested successfully</h6>
+                    </form>
+                </div>
+                <div id="refundMessage"></div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            fetchUserPayments(); // Fetch user payments when the page loads
+        });
+
+        function fetchUserPayments() {
+            $.ajax({
+                url: '/get_user_payments',
+                type: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        renderUserPayments(response.payments);
+                    } else {
+                        alert('Failed to fetch payments: ' + response.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching payments:', error);
+                }
+            });
+        }
+
+        function renderUserPayments(payments) {
+            $('#paymentDetails').empty(); // Clear previous payment details
+            payments.forEach(function(payment) {
+                var paymentRow = $('<tr></tr>');
+                paymentRow.append(
+                    $('<td></td>').text(payment.transaction_id),
+                    $('<td></td>').text(payment.payment_status),
+                    $('<td></td>').html('<button class="refundBtn" data-payment-id="' + payment.id + '">Refund</button>')
+                );
+
+                $('#paymentTable tbody').append(paymentRow);
+            });
+
+            // Attach event handler for refund buttons
+            $('.refundBtn').click(function() {
+                var paymentId = $(this).data('payment-id');
+                showRefundForm(paymentId); // Call the function to show the refund form
+            });
+        }
+
+        function showRefundForm(paymentId) {
+    // Set the transaction ID in the refund form
+    $('#transactionId').val(paymentId);
+
+    // Show the refund modal
+    $('#refundModal').show();
+}
+
+function submitRefundForm() {
+        var transactionId = $('#transactionId').val();
+        var bankAccount = $('#bankAccount').val();
+
+        // Show loader GIF for 3 seconds
+        $('#loader').show();
+        setTimeout(function() {
+            $('#loader').hide();
+
+            // Make an AJAX request to submit refund
+            $.ajax({
+                url: '/process_refund',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    transaction_id: transactionId,
+                    bank_account: bankAccount
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        $('#refundMessage').text(response.message);
+                        $('#successMessage').show(); // Show success message
+                        setTimeout(function() {
+                            $('#successMessage').hide(); // Hide success message after 3 seconds
+                        }, 3000);
+                    } else {
+                        $('#refundMessage').text('Failed to submit refund: ' + response.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error submitting refund:', error);
+                }
+            });
+        }, 3000); // 3 seconds delay before sending the request
+    }
+
+$(document).ready(function() {
+    // Close the modal when clicking on the close button
+    $('.close').click(function() {
+        $('#refundModal').hide();
+    });
+
+    // Submit refund form when clicking on the submit button
+    $('#refundSubmit').click(function(e) {
+        e.preventDefault(); // Prevent default form submission
+        submitRefundForm();
+    });
+});
+
+function showRefundForm(paymentId) {
+    // Fetch transaction ID from payment_status table using payment ID
+    $.ajax({
+        url: '/fetch_transaction_id',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ payment_id: paymentId }),
+        success: function(response) {
+            if (response.success) {
+                $('#transactionId').val(response.transaction_id); // Set transaction ID in the refund form
+                $('#refundModal').show(); // Show the refund modal
+            } else {
+                alert('Failed to fetch transaction ID');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching transaction ID:', error);
+        }
+    });
+}
+
+
+    </script>
+</body>
+</html>

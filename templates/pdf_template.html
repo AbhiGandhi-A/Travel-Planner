@@ -1,0 +1,28 @@
+<!-- pdf_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Receipt</title>
+</head>
+
+<body>
+
+    <h2>User Details:</h2>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+
+    <h2>Destination Details:</h2>
+    <p>Destination: {{ destination.name }}</p>
+    <p>Budget: {{ destination.budget }}</p>
+    <p>From Date: {{ destination.from_date }}</p>
+    <p>To Date: {{ destination.to_date }}</p>
+
+    <h2>Total Payable Amount:</h2>
+    <p>{{ total_amount }}</p>
+
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+</head>
+<body>
+
+    <div id="signup-form" class="container">
+        <h2>Signup</h2>
+        <form>
+            <label for="signup-username">Username:</label>
+            <input type="text" id="signup-username" required>
+            <label for="signup-password">Password:</label>
+            <input type="password" id="signup-password" required>
+            <label for="signup-email">Email:</label>
+            <input type="email" id="signup-email" required>
+            <button type="button" onclick="signupUser()">Signup</button>
+        </form>
+        <p>Already have an account? <a href="#" onclick="openLoginForm()">Login</a></p>
+    </div>
+
+    <div id="login-form" class="container">
+        <h2>Login</h2>
+        <form>
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" required>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" required>
+            <button type="button" onclick="loginUser()">Login</button>
+        </form>
+        <p>Forgot your password? <a href="#" onclick="openForgotPasswordForm()">Forgot Password</a></p>
+    </div>
+
+    <div id="forgot-password-form" class="container">
+        <h2>Forgot Password</h2>
+        <form>
+            <label for="forgot-email">Email:</label>
+            <input type="email" id="forgot-email" required>
+            <button type="button" onclick="sendOtp()">Send OTP</button>
+        </form>
+    </div>
+
+    <div id="reset-password-section" class="container">
+        <h2>Reset Password</h2>
+        <form>
+            <label for="reset-email">Email:</label>
+            <input type="email" id="reset-email" required>
+            <label for="reset-otp">OTP:</label>
+            <input type="text" id="reset-otp" required>
+            <label for="reset-new-password">New Password:</label>
+            <input type="password" id="reset-new-password" required>
+            <button type="button" onclick="resetUserPassword()">Reset Password</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function openLoginForm() {
+            $('#login-form').show();
+            $('#signup-form').hide();
+            $('#forgot-password-form').hide();
+            $('#reset-password-section').hide();
+        }
+
+        function openSignupForm() {
+            $('#signup-form').show();
+            $('#login-form').hide();
+            $('#forgot-password-form').hide();
+            $('#reset-password-section').hide();
+        }
+
+        function openForgotPasswordForm() {
+            $('#signup-form').hide();
+            $('#login-form').hide();
+            $('#forgot-password-form').show();
+            $('#reset-password-section').hide();
+        }
+
+        function openSignupForm() {
+            $('#signup-form').show();
+            $('#login-form').hide();
+            $('#forgot-password-form').hide();
+            $('#reset-password-section').hide();
+        }
+
+
+        function sendOtp() {
+            var email = $('#forgot-email').val();
+
+            $.post('/forgot-password', {email: email}, function(data) {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Success: ' + data.message);
+                    $('#forgot-password-form').hide();
+                    $('#reset-password-section').show();
+                }
+            }).fail(function() {
+                alert('Error: An unexpected error occurred.');
+            });
+        }
+
+        function resetUserPassword() {
+            var email = $('#reset-email').val();
+            var otp = $('#reset-otp').val();
+            var newPassword = $('#reset-new-password').val();
+
+            $.post('/reset-password', {email: email, otp: otp, new_password: newPassword}, function(data) {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Success: ' + data.message);
+                }
+            }).fail(function() {
+                alert('Error: An unexpected error occurred.');
+            });
+        }
+
+        function signupUser() {
+            var username = $('#signup-username').val();
+            var password = $('#signup-password').val();
+            var email = $('#signup-email').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/signup",
+                data: { username: username, password: password, email: email },
+                success: function(data) {
+                    if (data.error) {
+                        alert('Error: ' + data.error);
+                    } else {
+                        alert('Success: ' + data.message);
+                        openLoginForm();
+                    }
+                },
+                error: function() {
+                    alert('Error: An unexpected error occurred.');
+                }
+            });
+        }
+
+        function loginUser() {
+            var username = $('#login-username').val();
+            var password = $('#login-password').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/login",
+                data: { username: username, password: password },
+                success: function(data) {
+                    if (data.error) {
+                        alert('Error: ' + data.error);
+                    } else {
+                        alert('Success: ' + data.message);
+                        window.location.href = '/index1';
+                    }
+                },
+                error: function() {
+                    alert('Error: An unexpected error occurred.');
+                }
+            });
+        }
+        openSignupForm();
+    </script>
+</body>
+</html>
