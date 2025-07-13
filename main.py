@@ -17,14 +17,14 @@ CORS(app)
 # MySQL Config
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Abhi@3014A'
+app.config['MYSQL_PASSWORD'] = 
 app.config['MYSQL_DB'] = 'user'
 
 # Update your database configuration here
 db_config = {
     'host': '127.0.0.1',
     'user': 'root',
-    'password': 'Abhi@3014A',
+    'password': ,
     'database': 'user',  # Replace with your actual database name
     'port': 3306
 }
@@ -33,8 +33,8 @@ db_config = {
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'garbahub88@gmail.com'  # Update with your Gmail email
-app.config['MAIL_PASSWORD'] = 'gznl jxfn erge qizt'  # Update with your generated app password
+app.config['MAIL_USERNAME'] =  # Update with your Gmail email
+app.config['MAIL_PASSWORD'] =   # Update with your generated app password
 
 mail = Mail(app)
 mysql = MySQL(app)
