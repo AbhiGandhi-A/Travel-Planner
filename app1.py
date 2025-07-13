@@ -75,16 +75,16 @@ db_config = {
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'garbahub88@gmail.com'  # Update with your Gmail email
-app.config['MAIL_PASSWORD'] = 'gznl jxfn erge qizt'  # Update with your generated app password
+app.config['MAIL_USERNAME'] =   # Update with your Gmail email
+app.config['MAIL_PASSWORD'] =   # Update with your generated app password
 
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Replace 'smtp.example.com' with your SMTP server address
 app.config['MAIL_PORT'] = 587  # Replace 587 with your SMTP server port number (usually 587 for TLS)
 app.config['MAIL_USE_TLS'] = True  # Set to True if your SMTP server requires TLS encryption
 app.config['MAIL_USE_SSL'] = False  # Set to True if your SMTP server requires SSL encryption
-app.config['MAIL_USERNAME'] = 'garbahub88@gmail.com'  # Replace with your email address
-app.config['MAIL_PASSWORD'] = 'gznl jxfn erge qizt'
+app.config['MAIL_USERNAME'] =  # Replace with your email address
+app.config['MAIL_PASSWORD'] = 
 
 mail = Mail(app)
 
